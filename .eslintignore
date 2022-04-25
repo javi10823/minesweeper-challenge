@@ -1,0 +1,5 @@
+# build
+/build/**/*.js
+
+# Ignore test files
+**/*.test.js

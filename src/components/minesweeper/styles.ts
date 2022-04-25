@@ -6,10 +6,11 @@ interface CellsProps {
   item: string;
   disabled: boolean;
   theme: Theme;
+  flag: boolean
 }
 
-export const Cells = styled(Paper)(({ cells, item, theme }: CellsProps) => ({
-  backgroundColor: cells === '' && item !== '0' ? '#0d48dd' : 'aqua',
+export const Cells = styled(Paper)(({ cells, item, theme, flag }: CellsProps) => ({
+  backgroundColor: cells === '' && item !== '0' || flag ? '#0d48dd' : 'aqua',
   display: 'flex',
   width: '15px',
   height: '14px',

@@ -1,15 +1,18 @@
-import { useCallback, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { sendCommand } from '../../store/actions/sendCommand';
 import EmojiFlagsIcon from '@mui/icons-material/EmojiFlags';
-import { Cells, FlagButton, ButtonContainer } from './styles';
-import { Grid } from '@mui/material';
+import { Cells, FlagButton, ButtonContainer, ButtonsContainer } from './styles';
+import { Button, ButtonGroup, Grid, Typography } from '@mui/material';
+import MineImage from '../../assets/icons/mine.png';
+import { playing } from '../../store/actions';
 
 interface Props {
   data: string[];
+  startTimer: () => void;
 }
 
-const Minesweeper = ({ data }: Props) => {
+const Minesweeper: FC<Props> = ({ data, startTimer }) => {
   const [flagButtonSelected, setFlagButtonSelected] = useState(false);
   const [marked, setMarked] = useState<{ column: number; row: number }[]>([]);
   const dispatch = useDispatch();
@@ -28,7 +31,9 @@ const Minesweeper = ({ data }: Props) => {
       case '□':
         return '';
       case '*':
-        return 'mine';
+        return (
+          <img style={{ width: 20, height: 20 }} src={MineImage} alt="Mine" />
+        );
       }
     } else if (parseInt(item) !== 0) return item;
     return '';
@@ -58,15 +63,30 @@ const Minesweeper = ({ data }: Props) => {
     }
   };
 
+  const selectLevel = (level: number) => {
+    dispatch(sendCommand(`new ${level}`));
+    dispatch(playing(true));
+    startTimer();
+  };
+
   return (
     <div>
       <ButtonContainer>
-        <FlagButton
-          variant={flagButtonSelected ? 'contained' : 'outlined'}
-          onClick={setFlagButtonSelected.bind(null, !flagButtonSelected)}
-        >
-          <EmojiFlagsIcon />
-        </FlagButton>
+        <ButtonsContainer>
+          <Typography>Select dificulty level</Typography>
+          <ButtonGroup variant="outlined">
+            <Button onClick={selectLevel.bind(null, 1)}>One</Button>
+            <Button onClick={selectLevel.bind(null, 2)}>Two</Button>
+            <Button onClick={selectLevel.bind(null, 3)}>Three</Button>
+            <Button onClick={selectLevel.bind(null, 4)}>Four</Button>
+          </ButtonGroup>
+          <FlagButton
+            variant={flagButtonSelected ? 'contained' : 'outlined'}
+            onClick={setFlagButtonSelected.bind(null, !flagButtonSelected)}
+          >
+            <EmojiFlagsIcon />
+          </FlagButton>
+        </ButtonsContainer>
       </ButtonContainer>
       {data.map((item, row) => (
         <Grid key={row} container justifyContent="center" alignItems="center">

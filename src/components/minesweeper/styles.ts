@@ -30,6 +30,7 @@ export const FlagButton = styled(Button)({
   justifyContent: 'center',
   alignItems: 'center',
   textAlign: 'center',
+  marginTop: 20,
 });
 
 export const ButtonContainer = styled(Container)({
@@ -37,3 +38,11 @@ export const ButtonContainer = styled(Container)({
   justifyContent: 'center',
   paddingBlock: 10,
 });
+
+export const ButtonsContainer = styled(Container)({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+

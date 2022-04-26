@@ -5,11 +5,12 @@ import { CircularProgress, Container } from '@mui/material';
 
 const Home = () => {
   const { data, loading } = useAppSelector(({ minesweeper }) => minesweeper);
-  const { response } = useAppSelector(({ response }) => response);
+  const { response, playing } = useAppSelector(({ response }) => response);
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const map = data.slice(1, -1).split('\n');
+
   useEffect(() => {
     if (!loading) {
       setStartTime(performance.now());
@@ -21,7 +22,7 @@ const Home = () => {
       setEndTime(performance.now());
       setOpenModal(true);
     }
-  }, [response]);
+  }, [playing, response]);
 
   const formatTime = () => {
     const timeDiff = (endTime - startTime) / 1000;
@@ -47,14 +48,17 @@ const Home = () => {
     );
 
   return (
-    <div className='App'>
+    <div className="App">
       <Modal
         open={openModal}
         onClose={() => setOpenModal(false)}
         response={response}
         time={formatTime}
       />
-      <Minesweeper data={map} />
+      <Minesweeper
+        data={map}
+        startTimer={setStartTime.bind(null, performance.now())}
+      />
     </div>
   );
 };

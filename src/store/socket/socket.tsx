@@ -1,4 +1,8 @@
-import { minesweeperData, minesweeperError, response } from '../actions';
+import {
+  minesweeperData,
+  minesweeperError,
+  response,
+} from '../actions';
 
 function setupSocket(dispatch: any) {
   const socket = new WebSocket('wss://hometask.eg1236.com/game1/');
@@ -24,11 +28,10 @@ function setupSocket(dispatch: any) {
       break;
     case 'open':
       socket.send('map');
-      message.includes('You win') ||
-        (message === 'You lose' &&
-          dispatch(
-            response(message.includes('You win') ? 'You win' : message)
-          ));
+      (message.includes('You win') || message === 'You lose') &&
+           dispatch(
+             response(message.includes('You win') ? 'You win' : message)
+           );
       break;
     default:
       break;

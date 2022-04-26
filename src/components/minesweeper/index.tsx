@@ -10,9 +10,10 @@ import { playing } from '../../store/actions';
 interface Props {
   data: string[];
   startTimer: () => void;
+  elapsedTime: string;
 }
 
-const Minesweeper: FC<Props> = ({ data, startTimer }) => {
+const Minesweeper: FC<Props> = ({ data, startTimer, elapsedTime }) => {
   const [flagButtonSelected, setFlagButtonSelected] = useState(false);
   const [marked, setMarked] = useState<{ column: number; row: number }[]>([]);
   const dispatch = useDispatch();
@@ -73,7 +74,8 @@ const Minesweeper: FC<Props> = ({ data, startTimer }) => {
     <div>
       <ButtonContainer>
         <ButtonsContainer>
-          <Typography>Select dificulty level</Typography>
+          <Typography>{elapsedTime}</Typography>
+          <Typography>Select difficulty level</Typography>
           <ButtonGroup variant="outlined">
             <Button onClick={selectLevel.bind(null, 1)}>One</Button>
             <Button onClick={selectLevel.bind(null, 2)}>Two</Button>
@@ -88,8 +90,17 @@ const Minesweeper: FC<Props> = ({ data, startTimer }) => {
           </FlagButton>
         </ButtonsContainer>
       </ButtonContainer>
+
       {data.map((item, row) => (
-        <Grid key={row} container justifyContent="center" alignItems="center">
+        <Grid
+          key={row}
+          container
+          justifyContent={item.length > 9 ? 'center' : 'initial'} // TODO: The grid doesn't show all cells when centered on big maps, we should center the grid on all cases!
+          alignItems="center"
+          wrap="nowrap"
+          width="auto"
+          columns={item.length}
+        >
           {item.split('').map((item, column) => (
             <Cells
               key={column}
@@ -99,6 +110,7 @@ const Minesweeper: FC<Props> = ({ data, startTimer }) => {
               onClick={handlerCells.bind(null, column, row, item)}
             >
               {isMarked(column, row) ? <EmojiFlagsIcon /> : formatCells(item)}
+              {/* {parseInt(item) !== 0 ? column : null} */} {/* TODO: DELETE AFTER, FOR TESTING PURPOSES */}
             </Cells>
           ))}
         </Grid>

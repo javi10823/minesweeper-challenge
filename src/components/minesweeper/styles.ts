@@ -14,8 +14,8 @@ export const Cells = styled(Paper)(
     backgroundColor:
       (cells === '' && item !== '0') || flag ? '#0d48dd' : 'aqua',
     display: 'flex',
-    width: '15px',
-    height: '14px',
+    minWidth: '25px',
+    minHeight: '25px',
     padding: '10px',
     margin: '3px',
     justifyContent: 'center',
@@ -45,4 +45,3 @@ export const ButtonsContainer = styled(Container)({
   justifyContent: 'center',
   alignItems: 'center',
 });
-

@@ -1,17 +1,17 @@
-import { SendCommandType } from '../../interfaces';
+import { GeneralActionType } from '../../interfaces';
 import { SEND_COMMAND } from '../actionTypes';
 
 export const initialValues = {
-  data: '',
+  command: '',
 };
 
 export const sendCommandReducer = (
   state = initialValues,
-  action: SendCommandType
+  action: GeneralActionType
 ) => {
   switch (action.type) {
   case SEND_COMMAND:
-    return { data: action.payload };
+    return { command: action.payload };
   default:
     return state;
   }

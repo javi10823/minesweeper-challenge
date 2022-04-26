@@ -1,4 +1,4 @@
-import { MinesweeperType } from '../../interfaces';
+import { GeneralActionType } from '../../interfaces';
 import { GET_MINESWEEPER, GET_MINESWEEPER_ERROR } from '../actionTypes';
 
 export const initialValues = {
@@ -6,9 +6,9 @@ export const initialValues = {
   loading: true,
 };
 
-export const socketReducer = (
+export const minesweeperReducer = (
   state = initialValues,
-  action: MinesweeperType
+  action: GeneralActionType
 ) => {
   switch (action.type) {
   case GET_MINESWEEPER:

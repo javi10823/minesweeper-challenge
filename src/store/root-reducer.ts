@@ -1,9 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { sendCommandReducer, socketReducer } from './reducers';
+import { sendCommandReducer, minesweeperReducer, responseReducer } from './reducers';
 
 const rootReducer = combineReducers({
   sendCommand: sendCommandReducer,
-  socket: socketReducer,
+  minesweeper: minesweeperReducer,
+  response: responseReducer,
 });
 
 export default rootReducer;

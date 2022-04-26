@@ -1,2 +1,3 @@
 export { sendCommandReducer } from './sendCommand';
-export { socketReducer } from './minesweeper';
+export { minesweeperReducer } from './minesweeper';
+export { responseReducer } from './response';

@@ -2,8 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import { Minesweeper, Modal } from '../../components';
 import { CircularProgress, Container } from '@mui/material';
+import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { sendCommand } from '../../store/actions';
 
 const GameScreen = () => {
+  const location : any = useLocation();
+  const dispatch = useDispatch();
   const { data, loading } = useAppSelector(({ minesweeper }) => minesweeper);
   const { response, playing } = useAppSelector(({ response }) => response);
   const [startTime, setStartTime] = useState(0);
@@ -30,6 +35,10 @@ const GameScreen = () => {
       setOpenModal(true);
     }
   }, [playing, response]);
+
+  useEffect(() => {
+    dispatch(sendCommand(`new ${location.state.level}`));
+  }, [location]);
 
   const formatTime = (endTime: number) => {
     const timeDiff = (endTime - startTime) / 1000;

@@ -16,7 +16,7 @@ export const NavigationContainer = () => {
     <Router>
       <Routes>
         {routes.map(_renderItem)}
-        <Route path='/*' element={<Navigate replace to='/GameScreen' />} />
+        <Route path='/*' element={<Navigate replace to='/home' />} />
       </Routes>
     </Router>
   );

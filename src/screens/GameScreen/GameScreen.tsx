@@ -3,7 +3,7 @@ import { useAppSelector } from '../../hooks';
 import { Minesweeper, Modal } from '../../components';
 import { CircularProgress, Container } from '@mui/material';
 
-const Home = () => {
+const GameScreen = () => {
   const { data, loading } = useAppSelector(({ minesweeper }) => minesweeper);
   const { response, playing } = useAppSelector(({ response }) => response);
   const [startTime, setStartTime] = useState(0);
@@ -71,4 +71,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default GameScreen;

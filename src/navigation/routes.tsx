@@ -1,9 +1,14 @@
-import HomeScreen from '../screens/HomeScreen';
+import GameScreen from '../screens/GameScreen';
+import Home from '../screens/Home';
 import { RouteComponent } from '../interfaces';
 
 export const routes: RouteComponent[] = [
   {
-    path: '/home',
-    component: <HomeScreen />,
+    path: '/GameScreen',
+    component: <GameScreen />,
   },
+  {
+    path: '/home',
+    component: <Home />
+  }
 ];

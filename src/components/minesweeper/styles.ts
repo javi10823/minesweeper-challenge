@@ -1,5 +1,6 @@
 import { styled } from '@mui/material/styles';
 import { Paper, Button, Theme, Container } from '@mui/material';
+import {colors} from '../../config/theme';
 
 interface CellsProps {
   cells: string;
@@ -12,10 +13,12 @@ interface CellsProps {
 export const Cells = styled(Paper)(
   ({ cells, item, theme, flag }: CellsProps) => ({
     backgroundColor:
-      (cells === '' && item !== '0') || flag ? '#0d48dd' : 'aqua',
+      (cells === '' && item !== '0') || flag ? colors.blue : colors.aqua,
     display: 'flex',
     minWidth: '25px',
+    maxWidth: '25px',
     minHeight: '25px',
+    maxHeight: '25px',
     padding: '10px',
     margin: '3px',
     justifyContent: 'center',

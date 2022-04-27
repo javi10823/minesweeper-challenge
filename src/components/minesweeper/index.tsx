@@ -6,6 +6,7 @@ import { Cells, FlagButton, ButtonContainer, ButtonsContainer } from './styles';
 import { Button, ButtonGroup, Grid, Typography } from '@mui/material';
 import MineImage from '../../assets/icons/mine.png';
 import { playing } from '../../store/actions';
+import { colors } from '../../config/theme';
 
 interface Props {
   data: string[];
@@ -26,6 +27,13 @@ const Minesweeper: FC<Props> = ({ data, startTimer, elapsedTime }) => {
     [marked]
   );
 
+  const getColor = (item: string) => {
+    if (item === '1') return colors.surfieGreen;
+    if (item === '2') return colors.green;
+    if (item === '3') return colors.red;
+    return colors.purple;
+  };
+
   const formatCells = (item: string) => {
     if (isNaN(parseFloat(item))) {
       switch (item) {
@@ -36,7 +44,12 @@ const Minesweeper: FC<Props> = ({ data, startTimer, elapsedTime }) => {
           <img style={{ width: 20, height: 20 }} src={MineImage} alt="Mine" />
         );
       }
-    } else if (parseInt(item) !== 0) return item;
+    } else if (parseInt(item) !== 0)
+      return (
+        <Typography fontSize={25} fontWeight="700" color={getColor(item)}>
+          {item}
+        </Typography>
+      );
     return '';
   };
 

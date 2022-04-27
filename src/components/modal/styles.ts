@@ -1,5 +1,6 @@
 import { styled } from '@mui/material/styles';
 import { Modal, Paper, Theme, Typography } from '@mui/material';
+import { colors } from '../../config/theme';
 
 interface ContainerProps {
   theme: Theme;
@@ -12,7 +13,7 @@ export const Container = styled(Paper)(({ theme }: ContainerProps) => ({
   left: '50%',
   transform: 'translate(-50%, -50%)',
   bgcolor: 'background.paper',
-  borderColor: 'transparent',
+  borderColor: colors.transparent,
   boxShadow: 24,
   outline: 'none',
   color: theme.palette.text.secondary,

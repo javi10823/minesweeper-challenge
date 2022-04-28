@@ -3,17 +3,14 @@ import { Button, ButtonGroup, Typography } from '@mui/material';
 import { colors } from '../../config/theme';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { playing, sendCommand } from '../../store/actions';
-
-
-
-
+import { playing, sendCommand, setLoading } from '../../store/actions';
 
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
   const selectLevel = async (level: number) => {
+    await dispatch(setLoading(true));
     await dispatch(sendCommand(`new ${level}`));
     await dispatch(playing(true));
 

@@ -5,9 +5,10 @@ import { CircularProgress, Container } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { sendCommand } from '../../store/actions';
+import type { Location } from 'history';
 
 const GameScreen = () => {
-  const location : any = useLocation();
+  const location: Location = useLocation();
   const dispatch = useDispatch();
   const { data, loading } = useAppSelector(({ minesweeper }) => minesweeper);
   const { response, playing } = useAppSelector(({ response }) => response);
@@ -31,12 +32,14 @@ const GameScreen = () => {
 
   useEffect(() => {
     if (response === 'You lose' || response === 'You win') {
-      if (timer) clearInterval(timer); // TODO: Stop timer on game end
+      if (timer) clearInterval(timer);
       setOpenModal(true);
     }
   }, [playing, response]);
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     dispatch(sendCommand(`new ${location.state.level}`));
   }, [location]);
 

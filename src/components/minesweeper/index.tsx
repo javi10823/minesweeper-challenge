@@ -3,9 +3,8 @@ import { useDispatch } from 'react-redux';
 import { sendCommand } from '../../store/actions/sendCommand';
 import EmojiFlagsIcon from '@mui/icons-material/EmojiFlags';
 import { Cells, FlagButton, ButtonContainer, ButtonsContainer } from './styles';
-import { Button, ButtonGroup, Grid, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import MineImage from '../../assets/icons/mine.png';
-import { playing } from '../../store/actions';
 import { colors } from '../../config/theme';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +14,7 @@ interface Props {
   elapsedTime: string;
 }
 
-const Minesweeper: FC<Props> = ({ data, startTimer, elapsedTime }) => {
+const Minesweeper: FC<Props> = ({ data, elapsedTime }) => {
   const [flagButtonSelected, setFlagButtonSelected] = useState(false);
   const [marked, setMarked] = useState<{ column: number; row: number }[]>([]);
   const dispatch = useDispatch();
@@ -70,7 +69,7 @@ const Minesweeper: FC<Props> = ({ data, startTimer, elapsedTime }) => {
             )
           );
         }
-        setMarked([...marked, { column: column, row: row }]);
+        setMarked([...marked, { column, row }]);
       } else {
         if (!isMarked(column, row)) {
           dispatch(sendCommand(`open ${column} ${row}`));
@@ -98,8 +97,8 @@ const Minesweeper: FC<Props> = ({ data, startTimer, elapsedTime }) => {
         <Grid
           key={row}
           container
-          style={{width: (45+6)*(item.length), minWidth: '100%' }}
-          justifyContent={item.length > 9 ? 'center' : 'initial'} // TODO: The grid doesn't show all cells when centered on big maps, we should center the grid on all cases!
+          style={{ width: (45 + 6) * (item.length), minWidth: '100%' }}
+          justifyContent="center"
           alignItems="center"
           wrap="nowrap"
           width="auto"

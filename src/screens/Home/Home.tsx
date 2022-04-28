@@ -2,6 +2,8 @@ import React from 'react';
 import { Button, ButtonGroup, Typography } from '@mui/material';
 import { colors } from '../../config/theme';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { playing, sendCommand } from '../../store/actions';
 
 
 
@@ -9,8 +11,12 @@ import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
+  const selectLevel = async (level: number) => {
+    await dispatch(sendCommand(`new ${level}`));
+    await dispatch(playing(true));
 
-  const selectLevel = (level: number) => {
     navigate('/GameScreen', {state: {level}});
   };
 

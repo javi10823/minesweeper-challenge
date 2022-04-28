@@ -67,7 +67,7 @@ const GameScreen = () => {
     <div className="App">
       <Modal
         open={openModal}
-        onClose={() => setOpenModal(false)}
+        onClose={setOpenModal.bind(null, false)}
         response={response}
         time={() => formatTime(currentTime)}
       />

@@ -7,6 +7,7 @@ import { Button, ButtonGroup, Grid, Typography } from '@mui/material';
 import MineImage from '../../assets/icons/mine.png';
 import { playing } from '../../store/actions';
 import { colors } from '../../config/theme';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   data: string[];
@@ -18,6 +19,7 @@ const Minesweeper: FC<Props> = ({ data, startTimer, elapsedTime }) => {
   const [flagButtonSelected, setFlagButtonSelected] = useState(false);
   const [marked, setMarked] = useState<{ column: number; row: number }[]>([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const isMarked = useCallback(
     (itemColumn: number, itemRow: number) =>
@@ -77,24 +79,13 @@ const Minesweeper: FC<Props> = ({ data, startTimer, elapsedTime }) => {
     }
   };
 
-  const selectLevel = (level: number) => {
-    dispatch(sendCommand(`new ${level}`));
-    dispatch(playing(true));
-    startTimer();
-  };
-
   return (
     <div>
       <ButtonContainer>
         <ButtonsContainer>
           <Typography>{elapsedTime}</Typography>
           <Typography>Select difficulty level</Typography>
-          <ButtonGroup variant="outlined">
-            <Button onClick={selectLevel.bind(null, 1)}>One</Button>
-            <Button onClick={selectLevel.bind(null, 2)}>Two</Button>
-            <Button onClick={selectLevel.bind(null, 3)}>Three</Button>
-            <Button onClick={selectLevel.bind(null, 4)}>Four</Button>
-          </ButtonGroup>
+          <Button onClick={navigate.bind(null, -1)}>home</Button>
           <FlagButton
             variant={flagButtonSelected ? 'contained' : 'outlined'}
             onClick={setFlagButtonSelected.bind(null, !flagButtonSelected)}
@@ -103,11 +94,11 @@ const Minesweeper: FC<Props> = ({ data, startTimer, elapsedTime }) => {
           </FlagButton>
         </ButtonsContainer>
       </ButtonContainer>
-
       {data.map((item, row) => (
         <Grid
           key={row}
           container
+          style={{width: (45+6)*(item.length), minWidth: '100%' }}
           justifyContent={item.length > 9 ? 'center' : 'initial'} // TODO: The grid doesn't show all cells when centered on big maps, we should center the grid on all cases!
           alignItems="center"
           wrap="nowrap"

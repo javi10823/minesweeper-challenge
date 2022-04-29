@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import { Minesweeper, Modal } from '../../components';
-import { CircularProgress, Container } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import { useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { sendCommand } from '../../store/actions';
 import type { Location } from 'history';
+import { ModalContainer } from './styles';
 
 const GameScreen = () => {
   const location: Location = useLocation();
-  const dispatch = useDispatch();
   const { data, loading } = useAppSelector(({ minesweeper }) => minesweeper);
   const { response, playing } = useAppSelector(({ response }) => response);
   const [startTime, setStartTime] = useState(0);
@@ -19,7 +17,10 @@ const GameScreen = () => {
   const map = data.slice(1, -1).split('\n');
 
   const startTimer = () => {
-    const intervalID = setInterval(() => setCurrentTime(performance.now()), 1000);
+    const intervalID = setInterval(
+      () => setCurrentTime(performance.now()),
+      1000
+    );
     setTimer(intervalID);
   };
 
@@ -37,12 +38,6 @@ const GameScreen = () => {
     }
   }, [playing, response]);
 
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    dispatch(sendCommand(`new ${location.state.level}`));
-  }, [location]);
-
   const formatTime = (endTime: number) => {
     const timeDiff = (endTime - startTime) / 1000;
     const m = Math.floor((timeDiff % 3600) / 60);
@@ -55,24 +50,21 @@ const GameScreen = () => {
 
   if (loading)
     return (
-      <Container
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <CircularProgress />
-      </Container>
+      <ModalContainer>
+        <CircularProgress size={80} />
+      </ModalContainer>
     );
 
   return (
     <div className="App">
       <Modal
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        level={location.state.level}
         open={openModal}
         onClose={setOpenModal.bind(null, false)}
         response={response}
-        time={() => formatTime(currentTime)}
+        time={formatTime.bind(null, currentTime)}
       />
       <Minesweeper
         data={map}

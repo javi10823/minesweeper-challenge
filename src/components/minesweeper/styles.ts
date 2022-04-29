@@ -40,6 +40,10 @@ export const ButtonContainer = styled(Container)({
   display: 'flex',
   justifyContent: 'center',
   paddingBlock: 10,
+  top: 0,
+  minWidth: '100%',
+  position: 'fixed',
+  backgroundColor: 'white',
 });
 
 export const ButtonsContainer = styled(Container)({

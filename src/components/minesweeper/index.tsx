@@ -93,6 +93,7 @@ const Minesweeper: FC<Props> = ({ data, elapsedTime }) => {
           </FlagButton>
         </ButtonsContainer>
       </ButtonContainer>
+      <div style={{marginTop: 165}} />
       {data.map((item, row) => (
         <Grid
           key={row}

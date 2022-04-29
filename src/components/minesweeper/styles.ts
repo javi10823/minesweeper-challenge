@@ -13,7 +13,7 @@ interface CellsProps {
 export const Cells = styled(Paper)(
   ({ cells, item, theme, flag }: CellsProps) => ({
     backgroundColor:
-      (cells === '' && item !== '0') || flag ? colors.blue : colors.aqua,
+    flag ? colors.surfieGreen :  (cells === '' && item !== '0') ? colors.blue : colors.aqua,
     display: 'flex',
     minWidth: '25px',
     maxWidth: '25px',
